@@ -1,12 +1,4 @@
 class vboxhypervisor {
-  file { "/etc/apt.conf":
-    ensure  => file,
-    owner   => root,
-    group   => root,
-    mode    => 644,
-    source  => "puppet:///modules/vboxhypervisor/apt.conf",
-  }        
-
   package { 'linux-headers-amd64':
     ensure  => installed,
   }
@@ -42,8 +34,17 @@ class vboxhypervisor {
     mode    => 640,
   }
 
-  ## Need /etc/default/virtualbox config
+  file { "/etc/default/virtualbox":
+    ensure  => file,
+    owner   => root,
+    group   => root,
+    mode    => 644,
+    source  => "puppet:///modules/vboxhypervisor/virtualbox.default",
+  }        
 
-  ## Need virtualbox service
+  service { 'virtualbox':
+    ensure    => running,
+    enable    => true,
+  }
   
 }
