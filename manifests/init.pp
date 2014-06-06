@@ -13,6 +13,8 @@
 # limitations under the License.
 # 
 class vboxhypervisor {
+  include packagemgrconfig
+
   package { 'linux-headers-amd64':
     ensure  => installed,
   }
